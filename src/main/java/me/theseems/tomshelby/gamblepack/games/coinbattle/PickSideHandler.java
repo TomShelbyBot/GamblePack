@@ -60,14 +60,7 @@ public class PickSideHandler extends CallbackStateHandler {
     BotShortcuts.answer(
         state.getUpdate(), "Вы выбрали " + (picked.equals("h") ? "орла" : "решку"));
 
-    boolean ready =
-        game.getParticipants().stream()
-            .allMatch(
-                participantId ->
-                    info.getUserChoices().keySet().stream()
-                        .anyMatch(user -> user.equals(participantId)));
-
-    if (ready) {
+    if (info.getUserChoices().size() >= game.getParticipants().size()) {
       game.setState(ALL_CHOSEN);
       unregisterCallback(game);
     }
