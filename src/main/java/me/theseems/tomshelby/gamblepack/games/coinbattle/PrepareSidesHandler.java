@@ -33,7 +33,6 @@ public class PrepareSidesHandler implements StateHandler<GameState> {
                 new InlineKeyboardButton("Решка")
                     .setCallbackData("gamest#cb#" + game.getUuid() + "#c#t"))));
 
-    sendMessage.setReplyToMessageId(info.getMessage().getMessageId());
     sendMessage.setText("Выбирайте что кому должно выпасть");
     sendMessage.setReplyMarkup(markup);
     info.setMessage(Objects.requireNonNull(BotShortcuts.send(sendMessage)));
