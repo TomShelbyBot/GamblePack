@@ -15,11 +15,11 @@ public class TicUtils {
       default:
         return "UNKNOWN";
       case BLANK:
-        return ".";
+        return " ";
       case X:
-        return "X";
+        return "❌";
       case O:
-        return "O";
+        return "⭕️";
     }
   }
 
