@@ -71,6 +71,41 @@ public class GambleUtils {
     return new Pair<>(users, failed);
   }
 
+  public static Pair<Set<User>, Collection<String>> grabUsersFromArgs(ThomasBot bot, int count, Update update, String[] strings) {
+    Set<Integer> participantIds = new HashSet<>();
+    List<String> failed = new ArrayList<>();
+
+    participantIds.add(update.getMessage().getFrom().getId());
+    for (String string : strings) {
+      Optional<Integer> userId = DragUtils.dragUserId(update.getMessage().getChatId(), string);
+      if (!userId.isPresent()) {
+        failed.add(string);
+      } else if (participantIds.size() < count) {
+        participantIds.add(userId.get());
+      } else {
+        break;
+      }
+    }
+
+    Set<User> users = new TreeSet<>(Comparator.comparing(User::getId));
+    participantIds.forEach(
+        integer -> {
+          try {
+            users.add(
+                bot
+                    .execute(
+                        new GetChatMember()
+                            .setChatId(update.getMessage().getChatId())
+                            .setUserId(integer))
+                    .getUser());
+          } catch (TelegramApiException e) {
+            failed.add(String.valueOf(integer));
+          }
+        });
+
+    return new Pair<>(users, failed);
+  }
+
   public static boolean checkMoney(GambleInfo info, User user) {
     EconomyProvider provider = EconomyBotPackage.getOrCreate(info.getInitial().getChatId());
     BigDecimal amount = provider.getMoney(user.getId());
