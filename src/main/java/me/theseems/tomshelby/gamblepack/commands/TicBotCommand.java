@@ -14,6 +14,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TicBotCommand extends SimpleBotCommand {
   public TicBotCommand() {
@@ -25,6 +26,18 @@ public class TicBotCommand extends SimpleBotCommand {
     if (strings.length == 0) {
       thomasBot.replyBackText(update, "Укажите противника");
       return;
+    }
+
+    int size = 3;
+    try {
+      int newSize = Integer.parseInt(strings[0]);
+      if (2 <= newSize && newSize < 6) {
+        size = newSize;
+      }
+
+      strings =
+          Arrays.stream(strings).skip(1).collect(Collectors.toList()).toArray(new String[] {});
+    } catch (NumberFormatException ignored) {
     }
 
     Pair<Set<User>, Collection<String>> results =
@@ -47,12 +60,14 @@ public class TicBotCommand extends SimpleBotCommand {
     calendar.add(Calendar.SECOND, 60);
 
     List<User> userList = new ArrayList<>(users);
+    Collections.shuffle(userList);
+
     Game game =
         new SimpleGameBuilder()
             .chat(update.getMessage().getChatId())
             .participants(users)
             .autoUuid()
-            .strategy(new TicStrategy(3, userList.get(0), userList.get(1)))
+            .strategy(new TicStrategy(size, userList.get(0), userList.get(1)))
             .buildTimed(calendar.getTime());
 
     GameApi.getGameManager().registerGame(game);

@@ -110,6 +110,6 @@ public class GambleUtils {
     EconomyProvider provider = EconomyBotPackage.getOrCreate(info.getInitial().getChatId());
     BigDecimal amount = provider.getMoney(user.getId());
 
-    return info.getAmount().compareTo(amount) < 0;
+    return info.getAmount().compareTo(amount) <= 0;
   }
 }
