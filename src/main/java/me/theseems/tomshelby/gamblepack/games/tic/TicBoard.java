@@ -29,8 +29,7 @@ public class TicBoard {
     if (winner != null)
       throw new TicExceptions.IllegalMoveException(x, y, TicExceptions.IllegalMoveType.GAME_ENDED);
 
-    if (moveCount % 2 == 0 && move != TicCell.X
-        || moveCount % 2 != 0 && move != TicCell.O)
+    if (moveCount % 2 == 0 && move != TicCell.X || moveCount % 2 != 0 && move != TicCell.O)
       throw new TicExceptions.IllegalMoveException(x, y, TicExceptions.IllegalMoveType.OUT_OF_TURN);
 
     if (board[x][y] != TicCell.BLANK)
@@ -97,7 +96,7 @@ public class TicBoard {
     }
 
     // Check draw
-    if (moveCount == (Math.pow(board.length, 2) - 1)) {
+    if (moveCount == Math.pow(board.length, 2)) {
       return TicCell.BLANK;
     }
 
