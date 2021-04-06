@@ -1,6 +1,5 @@
 package me.theseems.tomshelby.gamblepack.games.sapper.handlers;
 
-import com.google.common.base.Joiner;
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.games.sapper.SapperCell;
 import me.theseems.tomshelby.gamblepack.games.sapper.SapperInfo;
@@ -9,15 +8,12 @@ import me.theseems.tomshelby.gamblepack.impl.callback.CallbackStateHandler;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;
 import me.theseems.tomshelby.gamblepack.utils.GameExceptions;
 import me.theseems.tomshelby.gamblepack.utils.SapperUtils;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.User;
 
-import java.util.Collection;
 import java.util.Comparator;
 import java.util.Set;
 import java.util.TreeSet;
-import java.util.stream.Collectors;
 
 public class SapperBoardHandler extends CallbackStateHandler {
   private final SapperInfo info;
@@ -28,18 +24,6 @@ public class SapperBoardHandler extends CallbackStateHandler {
 
   private void sendInvalidQuery(CallbackState state) {
     BotShortcuts.answer(state.getUpdate(), "Невалидный запрос.");
-  }
-
-  private void sendWinners(Collection<User> winner) {
-    BotShortcuts.send(
-        new SendMessage()
-            .setText(
-                "Игра окончена!\n\nПоздравляем: "
-                    + "@"
-                    + Joiner.on(" @")
-                        .join(winner.stream().map(User::getUserName).collect(Collectors.toList())))
-            .setChatId(info.getMessage().getChatId())
-            .setReplyToMessageId(info.getMessage().getMessageId()));
   }
 
   @Override
@@ -104,7 +88,6 @@ public class SapperBoardHandler extends CallbackStateHandler {
               .setReplyMarkup(SapperUtils.prepareMarkup(game, info.getBoard())));
 
       info.setWinners(winners);
-      sendWinners(winners);
       game.setState(SapperInfo.CELL_END);
 
     } catch (GameExceptions.IllegalMoveException e) {

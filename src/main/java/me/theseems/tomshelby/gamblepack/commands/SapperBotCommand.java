@@ -71,8 +71,8 @@ public class SapperBotCommand extends SimpleBotCommand {
             .strategy(
                 new SapperStrategy(
                     new SapperBoard(size)
-                        .withBombs(new Random().nextInt(size) + 1)
-                        .withWins(new Random().nextInt(size) + 1)))
+                        .withBombs(new Random().nextInt(size * size / 2 - 1) + 1)
+                        .withWins(1)))
             .buildTimed(calendar.getTime());
 
     GameApi.getGameManager().registerGame(game);

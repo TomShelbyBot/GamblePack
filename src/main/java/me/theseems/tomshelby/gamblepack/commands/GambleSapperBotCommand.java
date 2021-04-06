@@ -83,8 +83,8 @@ public class GambleSapperBotCommand extends SimpleBotCommand {
             .strategy(
                 new GambleSapperStrategy(
                     new SapperBoard(size)
-                        .withBombs(new Random().nextInt(size) + 1)
-                        .withWins(new Random().nextInt(size) + 1),
+                        .withBombs(new Random().nextInt(size * size / 2 - 1) + 1)
+                        .withWins(1),
                     amount))
             .buildTimed(calendar.getTime());
 
