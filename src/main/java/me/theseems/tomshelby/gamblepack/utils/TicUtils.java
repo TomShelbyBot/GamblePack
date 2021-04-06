@@ -34,7 +34,7 @@ public class TicUtils {
         buttons.add(
             new InlineKeyboardButton()
                 .setText(getStringPosition(position))
-                .setCallbackData("gamest#tic#" + game.getUuid() + "#pos#" + j + "#" + i));
+                .setCallbackData("gamest#tic#" + game.getUuid() + "#pos#" + i + "#" + j));
       }
       keyboard.add(buttons);
     }

@@ -1,9 +1,7 @@
-package me.theseems.tomshelby.gamblepack.games;
+package me.theseems.tomshelby.gamblepack.games.tic;
 
 import me.theseems.tomshelby.gamblepack.api.GameApi;
 import me.theseems.tomshelby.gamblepack.api.GameState;
-import me.theseems.tomshelby.gamblepack.games.tic.TicBoard;
-import me.theseems.tomshelby.gamblepack.games.tic.TicInfo;
 import me.theseems.tomshelby.gamblepack.games.tic.handlers.SendBoardHandler;
 import me.theseems.tomshelby.gamblepack.games.tic.handlers.TicBoardHandler;
 import me.theseems.tomshelby.gamblepack.impl.SimpleGameStateStrategy;

@@ -1,4 +1,4 @@
-package me.theseems.tomshelby.gamblepack.games.gamble;
+package me.theseems.tomshelby.gamblepack.games.gamble.handlers;
 
 import com.google.common.base.Joiner;
 import me.theseems.tomshelby.economypack.EconomyBotPackage;
@@ -8,6 +8,7 @@ import me.theseems.tomshelby.gamblepack.GambleBotPackage;
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameState;
 import me.theseems.tomshelby.gamblepack.api.StateHandler;
+import me.theseems.tomshelby.gamblepack.games.gamble.GambleInfo;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.User;

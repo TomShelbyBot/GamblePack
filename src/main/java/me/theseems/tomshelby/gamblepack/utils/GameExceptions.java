@@ -1,6 +1,6 @@
-package me.theseems.tomshelby.gamblepack.games.tic;
+package me.theseems.tomshelby.gamblepack.utils;
 
-public class TicExceptions {
+public class GameExceptions {
   public enum IllegalMoveType {
     GAME_ENDED,
     OUT_OF_TURN,
@@ -12,7 +12,7 @@ public class TicExceptions {
     private final int x;
     private final int y;
     private final IllegalMoveType reason;
-    private final TicCell move;
+    private final Object move;
 
     public IllegalMoveException(int x, int y, IllegalMoveType reason) {
       this.x = x;
@@ -21,7 +21,7 @@ public class TicExceptions {
       this.reason = reason;
     }
 
-    public IllegalMoveException(int x, int y, TicCell move, IllegalMoveType reason) {
+    public IllegalMoveException(int x, int y, Object move, IllegalMoveType reason) {
       this.x = x;
       this.y = y;
       this.move = move;
@@ -36,7 +36,7 @@ public class TicExceptions {
       return y;
     }
 
-    public TicCell getMove() {
+    public Object getMove() {
       return move;
     }
 
