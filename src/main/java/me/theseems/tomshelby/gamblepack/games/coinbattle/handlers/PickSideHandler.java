@@ -1,6 +1,7 @@
-package me.theseems.tomshelby.gamblepack.games.coinbattle;
+package me.theseems.tomshelby.gamblepack.games.coinbattle.handlers;
 
 import me.theseems.tomshelby.gamblepack.api.Game;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.CoinBattleInfo;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackState;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackStateHandler;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;

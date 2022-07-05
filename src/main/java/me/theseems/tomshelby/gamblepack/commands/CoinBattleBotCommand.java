@@ -6,7 +6,7 @@ import me.theseems.tomshelby.command.SimpleBotCommand;
 import me.theseems.tomshelby.command.SimpleCommandMeta;
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameApi;
-import me.theseems.tomshelby.gamblepack.games.CoinBattleStrategy;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.CoinBattleStrategy;
 import me.theseems.tomshelby.gamblepack.impl.SimpleGameBuilder;
 import me.theseems.tomshelby.gamblepack.utils.GambleUtils;
 import org.glassfish.grizzly.utils.Pair;

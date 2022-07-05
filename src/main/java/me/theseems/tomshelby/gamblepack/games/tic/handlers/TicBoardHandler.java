@@ -3,7 +3,7 @@ package me.theseems.tomshelby.gamblepack.games.tic.handlers;
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameState;
 import me.theseems.tomshelby.gamblepack.games.tic.TicCell;
-import me.theseems.tomshelby.gamblepack.games.tic.TicExceptions;
+import me.theseems.tomshelby.gamblepack.utils.GameExceptions;
 import me.theseems.tomshelby.gamblepack.games.tic.TicInfo;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackState;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackStateHandler;
@@ -88,7 +88,7 @@ public class TicBoardHandler extends CallbackStateHandler {
         game.setState(GameState.END);
       }
 
-    } catch (TicExceptions.IllegalMoveException e) {
+    } catch (GameExceptions.IllegalMoveException e) {
       switch (e.getReason()) {
         case GAME_ENDED:
           BotShortcuts.answer(state.getUpdate(), "У нас уже есть победитель!");

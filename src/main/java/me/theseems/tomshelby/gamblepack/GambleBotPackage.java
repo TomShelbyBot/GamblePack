@@ -1,9 +1,7 @@
 package me.theseems.tomshelby.gamblepack;
 
 import me.theseems.tomshelby.gamblepack.api.GameApi;
-import me.theseems.tomshelby.gamblepack.commands.CoinBattleBotCommand;
-import me.theseems.tomshelby.gamblepack.commands.GambleCoinBattleBotCommand;
-import me.theseems.tomshelby.gamblepack.commands.TicBotCommand;
+import me.theseems.tomshelby.gamblepack.commands.*;
 import me.theseems.tomshelby.gamblepack.impl.SimpleGameManager;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackStateManager;
 import me.theseems.tomshelby.pack.JavaBotPackage;
@@ -19,6 +17,8 @@ public class GambleBotPackage extends JavaBotPackage {
     getBot().getCommandContainer().attach(new CoinBattleBotCommand());
     getBot().getCommandContainer().attach(new GambleCoinBattleBotCommand());
     getBot().getCommandContainer().attach(new TicBotCommand());
+    getBot().getCommandContainer().attach(new SapperBotCommand());
+    getBot().getCommandContainer().attach(new GambleSapperBotCommand());
 
     logger = this.getLogger();
   }
@@ -28,6 +28,8 @@ public class GambleBotPackage extends JavaBotPackage {
     getBot().getCommandContainer().detach("coinbattle");
     getBot().getCommandContainer().detach("gamblecoin");
     getBot().getCommandContainer().detach("tic");
+    getBot().getCommandContainer().detach("sapper");
+    getBot().getCommandContainer().detach("gamblesapper");
   }
 
   public static Logger getPackLogger() {

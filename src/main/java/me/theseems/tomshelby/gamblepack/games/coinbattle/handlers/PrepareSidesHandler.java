@@ -1,8 +1,9 @@
-package me.theseems.tomshelby.gamblepack.games.coinbattle;
+package me.theseems.tomshelby.gamblepack.games.coinbattle.handlers;
 
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameState;
 import me.theseems.tomshelby.gamblepack.api.StateHandler;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.CoinBattleInfo;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;

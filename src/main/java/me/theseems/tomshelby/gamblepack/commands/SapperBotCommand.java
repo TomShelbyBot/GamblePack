@@ -6,45 +6,43 @@ import me.theseems.tomshelby.command.SimpleBotCommand;
 import me.theseems.tomshelby.command.SimpleCommandMeta;
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameApi;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.GambleCoinBattleStrategy;
+import me.theseems.tomshelby.gamblepack.games.sapper.SapperBoard;
+import me.theseems.tomshelby.gamblepack.games.sapper.SapperStrategy;
 import me.theseems.tomshelby.gamblepack.impl.SimpleGameBuilder;
 import me.theseems.tomshelby.gamblepack.utils.GambleUtils;
 import org.glassfish.grizzly.utils.Pair;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.User;
 
-import java.math.BigDecimal;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
+import java.util.stream.Collectors;
 
-public class GambleCoinBattleBotCommand extends SimpleBotCommand {
-  public GambleCoinBattleBotCommand() {
-    super(SimpleCommandMeta.onLabel("gamblecoin").description("Зарубиться на монетка-баттле НА ШЕЛКЕЛИ"));
+public class SapperBotCommand extends SimpleBotCommand {
+  public SapperBotCommand() {
+    super(SimpleCommandMeta.onLabel("sapper").description("Зарубиться в сапера"));
   }
 
   @Override
   public void handle(ThomasBot thomasBot, String[] strings, Update update) {
-    if (strings.length < 2) {
-      thomasBot.replyBackText(update, "Укажите стоимость и противника(-ов)!");
+    if (strings.length == 0) {
+      thomasBot.replyBackText(update, "Укажите противников");
       return;
     }
 
-    BigDecimal amount;
+    int size = 3;
     try {
-      amount = new BigDecimal(strings[0]);
-      if (amount.compareTo(BigDecimal.ZERO) <= 0) {
-        thomasBot.replyBackText(update, "Укажите положительную сумму");
-        return;
+      int newSize = Integer.parseInt(strings[0]);
+      if (2 <= newSize && newSize < 6) {
+        size = newSize;
       }
-    } catch (NumberFormatException e) {
-      thomasBot.replyBackText(update, "Укажите валидную сумму ставки");
-      return;
+
+      strings =
+          Arrays.stream(strings).skip(1).collect(Collectors.toList()).toArray(new String[] {});
+    } catch (NumberFormatException ignored) {
     }
 
-    strings = Arrays.stream(strings).skip(1).toArray(String[]::new);
-    Pair<Set<User>, Collection<String >> results = GambleUtils.grabUsersFromArgs(thomasBot, update, strings);
+    Pair<Set<User>, Collection<String>> results =
+        GambleUtils.grabUsersFromArgs(thomasBot, size * size / 2, update, strings);
 
     Set<User> users = results.getFirst();
     Collection<String> failed = results.getSecond();
@@ -62,12 +60,19 @@ public class GambleCoinBattleBotCommand extends SimpleBotCommand {
     Calendar calendar = Calendar.getInstance();
     calendar.add(Calendar.SECOND, 60);
 
+    List<User> userList = new ArrayList<>(users);
+    Collections.shuffle(userList);
+
     Game game =
         new SimpleGameBuilder()
             .chat(update.getMessage().getChatId())
             .participants(users)
             .autoUuid()
-            .strategy(new GambleCoinBattleStrategy(amount))
+            .strategy(
+                new SapperStrategy(
+                    new SapperBoard(size)
+                        .withBombs(new Random().nextInt(size * size / 2 - 1) + 1)
+                        .withWins(1)))
             .buildTimed(calendar.getTime());
 
     GameApi.getGameManager().registerGame(game);
