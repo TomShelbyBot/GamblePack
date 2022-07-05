@@ -1,7 +1,7 @@
 {
   "name": "GamblePack",
   "author": "@theseems",
-  "version": "0.1D",
+  "version": "0.2D",
   "description": "Package for gamble stuff",
   "dependencies": ["economy"],
   "main": "me.theseems.tomshelby.gamblepack.GambleBotPackage"

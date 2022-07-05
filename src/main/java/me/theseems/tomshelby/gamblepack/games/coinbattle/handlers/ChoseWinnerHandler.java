@@ -37,10 +37,11 @@ public class ChoseWinnerHandler implements StateHandler<GameState> {
     builder.append("\n").append(winString);
 
     BotShortcuts.edit(
-        new EditMessageText()
-            .setMessageId(info.getMessage().getMessageId())
-            .setChatId(info.getMessage().getChatId())
-            .setText(builder.toString()));
+        EditMessageText.builder()
+            .messageId(info.getMessage().getMessageId())
+            .chatId(info.getMessage().getChatId().toString())
+            .text(builder.toString())
+            .build());
   }
 
   @Override

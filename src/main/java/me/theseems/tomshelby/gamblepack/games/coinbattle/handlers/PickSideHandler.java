@@ -52,11 +52,12 @@ public class PickSideHandler extends CallbackStateHandler {
                 .append("\n"));
 
     BotShortcuts.edit(
-        new EditMessageText()
-            .setChatId(game.getChatId())
-            .setMessageId(info.getMessage().getMessageId())
-            .setText(builder.toString())
-            .setReplyMarkup(info.getMessage().getReplyMarkup()));
+        EditMessageText.builder()
+            .chatId(game.getChatId().toString())
+            .messageId(info.getMessage().getMessageId())
+            .text(builder.toString())
+            .replyMarkup(info.getMessage().getReplyMarkup())
+            .build());
 
     BotShortcuts.answer(
         state.getUpdate(), "Вы выбрали " + (picked.equals("h") ? "орла" : "решку"));

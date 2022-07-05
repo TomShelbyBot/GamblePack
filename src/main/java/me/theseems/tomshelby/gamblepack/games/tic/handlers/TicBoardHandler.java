@@ -26,19 +26,21 @@ public class TicBoardHandler extends CallbackStateHandler {
 
   private void sendDraw() {
     BotShortcuts.send(
-        new SendMessage()
-            .setText("Вышла ничья!")
-            .setChatId(info.getMessage().getChatId())
-            .setReplyToMessageId(info.getMessage().getMessageId()));
+        SendMessage.builder()
+            .text("Вышла ничья!")
+            .chatId(info.getMessage().getChatId().toString())
+            .replyToMessageId(info.getMessage().getMessageId())
+            .build());
   }
 
   private void sendWinner(TicCell cell) {
     User winner = cell == TicCell.X ? info.getUserForX() : info.getUserForY();
     BotShortcuts.send(
-        new SendMessage()
-            .setText("У нас победитель!\n\nПоздравляем, @" + winner.getUserName())
-            .setChatId(info.getMessage().getChatId())
-            .setReplyToMessageId(info.getMessage().getMessageId()));
+        SendMessage.builder()
+            .text("У нас победитель!\n\nПоздравляем, @" + winner.getUserName())
+            .chatId(info.getMessage().getChatId().toString())
+            .replyToMessageId(info.getMessage().getMessageId())
+            .build());
   }
 
   @Override
@@ -69,11 +71,12 @@ public class TicBoardHandler extends CallbackStateHandler {
       info.getBoard().makeMove(x, y, cell);
 
       BotShortcuts.edit(
-          new EditMessageText()
-              .setText(info.getMessage().getText())
-              .setChatId(info.getMessage().getChatId())
-              .setMessageId(info.getMessage().getMessageId())
-              .setReplyMarkup(TicUtils.prepareMarkup(game, info.getBoard())));
+          EditMessageText.builder()
+              .text(info.getMessage().getText())
+              .chatId(info.getMessage().getChatId().toString())
+              .messageId(info.getMessage().getMessageId())
+              .replyMarkup(TicUtils.prepareMarkup(game, info.getBoard()))
+              .build());
       BotShortcuts.answer(state.getUpdate(), "Ход принят");
 
       if (info.getBoard().getWinner() != null) {

@@ -5,7 +5,7 @@ import me.theseems.tomshelby.gamblepack.commands.*;
 import me.theseems.tomshelby.gamblepack.impl.SimpleGameManager;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackStateManager;
 import me.theseems.tomshelby.pack.JavaBotPackage;
-import org.slf4j.Logger;
+import org.apache.logging.log4j.Logger;
 
 public class GambleBotPackage extends JavaBotPackage {
   private static Logger logger;

@@ -32,9 +32,10 @@ public class TicUtils {
       for (int j = 0; j < board.getSize(); j++) {
         TicCell position = board.getPoint(i, j);
         buttons.add(
-            new InlineKeyboardButton()
-                .setText(getStringPosition(position))
-                .setCallbackData("gamest#tic#" + game.getUuid() + "#pos#" + i + "#" + j));
+            InlineKeyboardButton.builder()
+                .text(getStringPosition(position))
+                .callbackData("gamest#tic#" + game.getUuid() + "#pos#" + i + "#" + j)
+                .build());
       }
       keyboard.add(buttons);
     }

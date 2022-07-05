@@ -51,13 +51,13 @@ public class GambleSubtractHandler implements StateHandler<GameState> {
               simpleWithdrawTransaction -> {
                 if (simpleWithdrawTransaction.getStatus() != TransactionStatus.SUCCEEDED) {
                   BotShortcuts.edit(
-                      new EditMessageText()
-                          .setText(
-                              "У участника '"
+                      EditMessageText.builder()
+                          .text("У участника '"
                                   + user.getUserName()
                                   + "' не удалось списать средства. Завершаем игру и возвращаем всё.")
-                          .setChatId(info.getInitial().getChatId())
-                          .setMessageId(info.getInitial().getMessageId()));
+                          .chatId(info.getInitial().getChatId().toString())
+                          .messageId(info.getInitial().getMessageId())
+                          .build());
 
                   next.set(false);
                   game.setState(GameState.END);

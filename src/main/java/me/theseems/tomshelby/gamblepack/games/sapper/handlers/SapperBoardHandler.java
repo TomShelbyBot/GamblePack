@@ -51,11 +51,12 @@ public class SapperBoardHandler extends CallbackStateHandler {
       if (cell.getType().equals(SapperCell.Type.BLANK)) {
         BotShortcuts.answer(state.getUpdate(), "Пусто.. пронесло)");
         BotShortcuts.edit(
-            new EditMessageText()
-                .setText("Сейчас ход: @" + info.getBoard().getCurrentPlayer().getUserName())
-                .setChatId(info.getMessage().getChatId())
-                .setMessageId(info.getMessage().getMessageId())
-                .setReplyMarkup(SapperUtils.prepareMarkup(game, info.getBoard())));
+            EditMessageText.builder()
+                .text("Сейчас ход: @" + info.getBoard().getCurrentPlayer().getUserName())
+                .chatId(info.getMessage().getChatId().toString())
+                .messageId(info.getMessage().getMessageId())
+                .replyMarkup(SapperUtils.prepareMarkup(game, info.getBoard()))
+                .build());
         return;
       }
 
@@ -81,11 +82,12 @@ public class SapperBoardHandler extends CallbackStateHandler {
       }
 
       BotShortcuts.edit(
-          new EditMessageText()
-              .setText(reason)
-              .setChatId(info.getMessage().getChatId())
-              .setMessageId(info.getMessage().getMessageId())
-              .setReplyMarkup(SapperUtils.prepareMarkup(game, info.getBoard())));
+          EditMessageText.builder()
+              .text(reason)
+              .chatId(info.getMessage().getChatId().toString())
+              .messageId(info.getMessage().getMessageId())
+              .replyMarkup(SapperUtils.prepareMarkup(game, info.getBoard()))
+              .build());
 
       info.setWinners(winners);
       game.setState(SapperInfo.CELL_END);

@@ -19,10 +19,11 @@ import java.util.*;
 public class GambleUtils {
   private static void editMessageNotEnoughMoney(User user, GambleInfo info) {
     BotShortcuts.edit(
-        new EditMessageText()
-            .setText("У участника '" + user.getUserName() + "' недостаточно средств для игры.")
-            .setChatId(info.getInitial().getChatId())
-            .setMessageId(info.getInitial().getMessageId()));
+        EditMessageText.builder()
+            .text("У участника '" + user.getUserName() + "' недостаточно средств для игры.")
+            .chatId(info.getInitial().getChatId().toString())
+            .messageId(info.getInitial().getMessageId())
+            .build());
   }
 
   private static void callbackFeedbackNotEnoughMoney(CallbackState state) {
@@ -39,12 +40,12 @@ public class GambleUtils {
   }
 
   public static Pair<Set<User>, Collection<String>> grabUsersFromArgs(ThomasBot bot, Update update, String[] strings) {
-    Set<Integer> participantIds = new HashSet<>();
+    Set<Long> participantIds = new HashSet<>();
     List<String> failed = new ArrayList<>();
 
     participantIds.add(update.getMessage().getFrom().getId());
     for (String string : strings) {
-      Optional<Integer> userId = DragUtils.dragUserId(update.getMessage().getChatId(), string);
+      Optional<Long> userId = DragUtils.dragUserId(update.getMessage().getChatId(), string);
       if (!userId.isPresent()) {
         failed.add(string);
       } else {
@@ -59,9 +60,10 @@ public class GambleUtils {
             users.add(
                 bot
                     .execute(
-                        new GetChatMember()
-                            .setChatId(update.getMessage().getChatId())
-                            .setUserId(integer))
+                        GetChatMember.builder()
+                            .chatId(update.getMessage().getChatId().toString())
+                            .userId(integer)
+                            .build())
                     .getUser());
           } catch (TelegramApiException e) {
             failed.add(String.valueOf(integer));
@@ -72,12 +74,12 @@ public class GambleUtils {
   }
 
   public static Pair<Set<User>, Collection<String>> grabUsersFromArgs(ThomasBot bot, int count, Update update, String[] strings) {
-    Set<Integer> participantIds = new HashSet<>();
+    Set<Long> participantIds = new HashSet<>();
     List<String> failed = new ArrayList<>();
 
     participantIds.add(update.getMessage().getFrom().getId());
     for (String string : strings) {
-      Optional<Integer> userId = DragUtils.dragUserId(update.getMessage().getChatId(), string);
+      Optional<Long> userId = DragUtils.dragUserId(update.getMessage().getChatId(), string);
       if (!userId.isPresent()) {
         failed.add(string);
       } else if (participantIds.size() < count) {
@@ -94,9 +96,10 @@ public class GambleUtils {
             users.add(
                 bot
                     .execute(
-                        new GetChatMember()
-                            .setChatId(update.getMessage().getChatId())
-                            .setUserId(integer))
+                        GetChatMember.builder()
+                            .chatId(update.getMessage().getChatId().toString())
+                            .userId(integer)
+                            .build())
                     .getUser());
           } catch (TelegramApiException e) {
             failed.add(String.valueOf(integer));

@@ -31,9 +31,10 @@ public class SapperUtils {
       List<InlineKeyboardButton> row = new ArrayList<>();
       for (int j = 0; j < board.getSize(); j++) {
         row.add(
-            new InlineKeyboardButton()
-                .setText(getStringCell(board.get(i, j)))
-                .setCallbackData("gamest#sapper#" + game.getUuid() + "#pos#" + i + "#" + j));
+            InlineKeyboardButton.builder()
+                .text(getStringCell(board.get(i, j)))
+                .callbackData("gamest#sapper#" + game.getUuid() + "#pos#" + i + "#" + j)
+                .build());
       }
 
       buttons.add(row);

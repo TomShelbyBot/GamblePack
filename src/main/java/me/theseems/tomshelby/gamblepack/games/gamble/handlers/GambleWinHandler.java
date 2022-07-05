@@ -34,13 +34,13 @@ public class GambleWinHandler implements StateHandler<GameState> {
               new SimpleDepositTransaction(provider, amount, winner.getId()),
               transaction -> {
                 SendMessage sendMessage =
-                    new SendMessage()
-                        .setChatId(info.getInitial().getChatId())
-                        .setText(
-                            "Зачислено +"
+                    SendMessage.builder()
+                        .chatId(info.getInitial().getChatId().toString())
+                        .text("Зачислено +"
                                 + DecimalFormat.getNumberInstance().format(amount)
                                 + " на счет @"
-                                + winner.getUserName());
+                                + winner.getUserName())
+                        .build();
 
                 BotShortcuts.sendAsync(sendMessage);
               });

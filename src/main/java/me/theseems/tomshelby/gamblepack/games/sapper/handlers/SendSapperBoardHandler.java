@@ -20,10 +20,11 @@ public class SendSapperBoardHandler implements StateHandler<GameState> {
     info.getBoard().fillPlayers(game.getParticipants());
     info.setMessage(
         BotShortcuts.send(
-            new SendMessage()
-                .setText("Сейчас ход: @" + info.getBoard().getCurrentPlayer().getUserName())
-                .setReplyMarkup(SapperUtils.prepareMarkup(game, info.getBoard()))
-                .setChatId(game.getChatId())));
+            SendMessage.builder()
+                .text("Сейчас ход: @" + info.getBoard().getCurrentPlayer().getUserName())
+                .replyMarkup(SapperUtils.prepareMarkup(game, info.getBoard()))
+                .chatId(game.getChatId().toString())
+                .build()));
 
     game.setState(SapperInfo.CELL_CHOICE);
   }

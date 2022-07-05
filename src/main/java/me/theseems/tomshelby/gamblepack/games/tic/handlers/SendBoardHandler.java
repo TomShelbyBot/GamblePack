@@ -19,15 +19,16 @@ public class SendBoardHandler implements StateHandler<GameState> {
   public void handle(Game game, GameState state) {
     info.setMessage(
         BotShortcuts.send(
-            new SendMessage()
-                .setText(
+            SendMessage.builder()
+                .text(
                     "Поехали!\n\n"
                         + info.getUserForX().getUserName()
                         + " играет крестиками\n"
                         + info.getUserForY().getUserName()
                         + " играет ноликами")
-                .setReplyMarkup(TicUtils.prepareMarkup(game, info.getBoard()))
-                .setChatId(game.getChatId())));
+                .replyMarkup(TicUtils.prepareMarkup(game, info.getBoard()))
+                .chatId(game.getChatId().toString())
+                .build()));
 
     game.setState(TicInfo.TIC_CHOICE);
   }
