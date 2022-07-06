@@ -1,6 +1,7 @@
-package me.theseems.tomshelby.gamblepack.games.coinbattle;
+package me.theseems.tomshelby.gamblepack.games.coinbattle.handlers;
 
 import me.theseems.tomshelby.gamblepack.api.Game;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.CoinBattleInfo;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackState;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackStateHandler;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;
@@ -51,11 +52,12 @@ public class PickSideHandler extends CallbackStateHandler {
                 .append("\n"));
 
     BotShortcuts.edit(
-        new EditMessageText()
-            .setChatId(game.getChatId())
-            .setMessageId(info.getMessage().getMessageId())
-            .setText(builder.toString())
-            .setReplyMarkup(info.getMessage().getReplyMarkup()));
+        EditMessageText.builder()
+            .chatId(game.getChatId().toString())
+            .messageId(info.getMessage().getMessageId())
+            .text(builder.toString())
+            .replyMarkup(info.getMessage().getReplyMarkup())
+            .build());
 
     BotShortcuts.answer(
         state.getUpdate(), "Вы выбрали " + (picked.equals("h") ? "орла" : "решку"));

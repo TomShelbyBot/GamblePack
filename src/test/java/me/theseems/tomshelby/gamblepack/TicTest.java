@@ -1,7 +1,7 @@
 package me.theseems.tomshelby.gamblepack;
 
 import me.theseems.tomshelby.gamblepack.games.tic.TicBoard;
-import me.theseems.tomshelby.gamblepack.games.tic.TicExceptions;
+import me.theseems.tomshelby.gamblepack.utils.GameExceptions;
 import me.theseems.tomshelby.gamblepack.games.tic.TicCell;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -33,6 +33,6 @@ public class TicTest {
     Assertions.assertEquals(TicCell.X, board.getWinner());
 
     Assertions.assertThrows(
-        TicExceptions.IllegalMoveException.class, () -> board.makeMove(0, 1, TicCell.X));
+        GameExceptions.IllegalMoveException.class, () -> board.makeMove(0, 1, TicCell.X));
   }
 }

@@ -1,7 +1,8 @@
-package me.theseems.tomshelby.gamblepack.games.gamble;
+package me.theseems.tomshelby.gamblepack.games.gamble.handlers;
 
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameState;
+import me.theseems.tomshelby.gamblepack.games.gamble.GambleInfo;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackState;
 import me.theseems.tomshelby.gamblepack.impl.callback.CallbackStateHandler;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;
@@ -46,27 +47,30 @@ public class GambleAcceptRequestHandler extends CallbackStateHandler {
     different.forEach(user -> builder.append(user.getUserName()).append(" "));
 
     BotShortcuts.edit(
-        new EditMessageText()
-            .setText(builder.toString())
-            .setMessageId(info.getInitial().getMessageId())
-            .setReplyMarkup(info.getInitial().getReplyMarkup())
-            .setChatId(info.getInitial().getChatId()));
+        EditMessageText.builder()
+            .text(builder.toString())
+            .messageId(info.getInitial().getMessageId())
+            .replyMarkup(info.getInitial().getReplyMarkup())
+            .chatId(info.getInitial().getChatId().toString())
+            .build());
   }
 
   private void sendReadyMessage() {
     BotShortcuts.edit(
-        new EditMessageText()
-            .setText("Все готовы к игре в монетку на шелкели: " + info.getAmount())
-            .setMessageId(info.getInitial().getMessageId())
-            .setChatId(info.getInitial().getChatId()));
+        EditMessageText.builder()
+            .text("Все готовы к игре в монетку на шелкели: " + info.getAmount())
+            .messageId(info.getInitial().getMessageId())
+            .chatId(info.getInitial().getChatId().toString())
+            .build());
   }
 
   private void sendDeclineMessage(User from) {
     BotShortcuts.edit(
-        new EditMessageText()
-            .setText("Игрок '" + from.getUserName() + "' отклонил предложение.")
-            .setMessageId(info.getInitial().getMessageId())
-            .setChatId(info.getInitial().getChatId()));
+        EditMessageText.builder()
+            .text("Игрок '" + from.getUserName() + "' отклонил предложение.")
+            .messageId(info.getInitial().getMessageId())
+            .chatId(info.getInitial().getChatId().toString())
+            .build());
   }
 
   private Set<User> calculateDiff(Game game) {

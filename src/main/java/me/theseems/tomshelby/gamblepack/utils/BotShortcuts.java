@@ -46,10 +46,11 @@ public class BotShortcuts {
     try {
       Main.getBot()
           .execute(
-              new AnswerCallbackQuery()
-                  .setCallbackQueryId(update.getCallbackQuery().getId())
-                  .setText(message)
-                  .setShowAlert(alert));
+              AnswerCallbackQuery.builder()
+                  .callbackQueryId(update.getCallbackQuery().getId())
+                  .text(message)
+                  .showAlert(alert)
+                  .build());
     } catch (TelegramApiException e) {
       e.printStackTrace();
     }

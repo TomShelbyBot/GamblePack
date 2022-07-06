@@ -1,11 +1,10 @@
-package me.theseems.tomshelby.gamblepack.games;
+package me.theseems.tomshelby.gamblepack.games.coinbattle;
 
 import me.theseems.tomshelby.gamblepack.api.GameApi;
 import me.theseems.tomshelby.gamblepack.api.GameState;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.ChoseWinnerHandler;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.CoinBattleInfo;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.PickSideHandler;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.PrepareSidesHandler;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.handlers.ChoseWinnerHandler;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.handlers.PickSideHandler;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.handlers.PrepareSidesHandler;
 import me.theseems.tomshelby.gamblepack.impl.SimpleGameStateStrategy;
 
 public class CoinBattleStrategy extends SimpleGameStateStrategy {

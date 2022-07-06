@@ -1,12 +1,15 @@
-package me.theseems.tomshelby.gamblepack.games;
+package me.theseems.tomshelby.gamblepack.games.coinbattle;
 
 import me.theseems.tomshelby.gamblepack.api.GameApi;
 import me.theseems.tomshelby.gamblepack.api.GameState;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.ChoseWinnerHandler;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.CoinBattleInfo;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.PickSideHandler;
-import me.theseems.tomshelby.gamblepack.games.coinbattle.PrepareSidesHandler;
-import me.theseems.tomshelby.gamblepack.games.gamble.*;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.handlers.ChoseWinnerHandler;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.handlers.PickSideHandler;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.handlers.PrepareSidesHandler;
+import me.theseems.tomshelby.gamblepack.games.gamble.GambleInfo;
+import me.theseems.tomshelby.gamblepack.games.gamble.handlers.GambleAcceptRequestHandler;
+import me.theseems.tomshelby.gamblepack.games.gamble.handlers.GambleSendRequestHandler;
+import me.theseems.tomshelby.gamblepack.games.gamble.handlers.GambleSubtractHandler;
+import me.theseems.tomshelby.gamblepack.games.gamble.handlers.GambleWinHandler;
 import me.theseems.tomshelby.gamblepack.impl.SimpleGameStateStrategy;
 
 import java.math.BigDecimal;

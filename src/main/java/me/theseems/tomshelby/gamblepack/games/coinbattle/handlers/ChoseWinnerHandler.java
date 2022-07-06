@@ -1,8 +1,9 @@
-package me.theseems.tomshelby.gamblepack.games.coinbattle;
+package me.theseems.tomshelby.gamblepack.games.coinbattle.handlers;
 
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameState;
 import me.theseems.tomshelby.gamblepack.api.StateHandler;
+import me.theseems.tomshelby.gamblepack.games.coinbattle.CoinBattleInfo;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.User;
@@ -36,10 +37,11 @@ public class ChoseWinnerHandler implements StateHandler<GameState> {
     builder.append("\n").append(winString);
 
     BotShortcuts.edit(
-        new EditMessageText()
-            .setMessageId(info.getMessage().getMessageId())
-            .setChatId(info.getMessage().getChatId())
-            .setText(builder.toString()));
+        EditMessageText.builder()
+            .messageId(info.getMessage().getMessageId())
+            .chatId(info.getMessage().getChatId().toString())
+            .text(builder.toString())
+            .build());
   }
 
   @Override

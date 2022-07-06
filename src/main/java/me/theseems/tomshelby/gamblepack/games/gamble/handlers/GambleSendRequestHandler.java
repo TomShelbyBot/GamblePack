@@ -1,8 +1,9 @@
-package me.theseems.tomshelby.gamblepack.games.gamble;
+package me.theseems.tomshelby.gamblepack.games.gamble.handlers;
 
 import me.theseems.tomshelby.gamblepack.api.Game;
 import me.theseems.tomshelby.gamblepack.api.GameState;
 import me.theseems.tomshelby.gamblepack.api.StateHandler;
+import me.theseems.tomshelby.gamblepack.games.gamble.GambleInfo;
 import me.theseems.tomshelby.gamblepack.utils.BotShortcuts;
 import me.theseems.tomshelby.gamblepack.utils.GambleUtils;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
@@ -26,19 +27,25 @@ public class GambleSendRequestHandler implements StateHandler<GameState> {
   @Override
   public void handle(Game game, GameState state) {
     SendMessage sendMessage =
-        new SendMessage()
-            .setChatId(game.getChatId())
-            .setText("Играем на шелкили: **" + info.getAmount() + "**")
-            .enableMarkdown(true);
+        SendMessage.builder()
+            .chatId(game.getChatId().toString())
+            .text("Играем на шелкили: **" + info.getAmount() + "**")
+            .build();
+
+    sendMessage.enableMarkdown(true);
 
     InlineKeyboardMarkup markup = new InlineKeyboardMarkup();
     markup.setKeyboard(
         Collections.singletonList(
             Arrays.asList(
-                new InlineKeyboardButton("Принять")
-                    .setCallbackData("gamest#gmb#" + game.getUuid() + "#a"),
-                new InlineKeyboardButton("Откзаться")
-                    .setCallbackData("gamest#gmb#" + game.getUuid() + "#d"))));
+                InlineKeyboardButton.builder()
+                    .text("Принять")
+                    .callbackData("gamest#gmb#" + game.getUuid() + "#a")
+                    .build(),
+                InlineKeyboardButton.builder()
+                    .text("Откзаться")
+                    .callbackData("gamest#gmb#" + game.getUuid() + "#d")
+                    .build())));
 
     sendMessage.setReplyMarkup(markup);
     info.setInitial(Objects.requireNonNull(BotShortcuts.send(sendMessage)));
